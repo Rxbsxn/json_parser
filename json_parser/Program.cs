@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -28,8 +30,15 @@ namespace json_parser
 
     public static void Main(string[] args)
     {
-      var response = GetResponse("https://jsonplaceholder.typicode.com/users").Result;
-      Console.WriteLine(response);
+      var response = GetResponse("https://jsonplaceholder.typicode.com/users").Result.ToString();
+
+      List<User> users = JsonConvert.DeserializeObject<List<User>>(response);
+
+      foreach (var item in users)
+      {
+        Console.WriteLine(item);
+      }
+
       Console.ReadLine();
     }
 
